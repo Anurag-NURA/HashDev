@@ -1,6 +1,29 @@
-<%- include("partials/header"); %> 
+<%- include("partials/header"); %>
 
-<h1>About</h1>
-<p><%= AContent %> </p>
+<h1 class="about_heading">About</h1>
+<p class="about_content"><%= AContent %></p>
 
-<%- include("partials/footer"); %> 
+<div class="person">
+  <img src="./images/front.png" alt="frontend" class="frontEnd_img" />
+  <h3 style="color: #1abc9c">About Front End Used</h3>
+  <p>
+    The website is created using HTML, CSS and JavaScript. But for the
+    templating system we used EJS templating system. EJS stands for Embedded
+    JavaScript. Even though we can use our regular scripting tags for using
+    javascript we still need to reduce the code which was possible through EJS.
+  </p>
+</div>
+
+<div class="person">
+  <img src="./images/back.png" alt="frontend" class="backEnd_img" />
+  <h3 style="color: #1abc9c">About Back End Used</h3>
+  <p>
+    This website backend is created using different JavaScript frameworks such
+    as Node.js for creating modules, Express.js for creating and running
+    servers, Mongoose.js for creating database queries and lastly a combination
+    of express-session.js and Passport.js for creating sessions and
+    authentication. Backend data is stored in MongoDB.
+  </p>
+</div>
+
+<%- include("partials/footer"); %>
