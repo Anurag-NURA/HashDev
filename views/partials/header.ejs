@@ -4,25 +4,116 @@
     <meta charset="utf-8" />
     <title>Daily Journal</title>
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans&family=Kaushan+Script&family=Nunito&display=swap"
       rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="/css/styles.css" />
-    <nav class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header">
-          <p class="navbar-brand">DAILY JOURNAL</p>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-          <!-- 6 -->
-          <li id="home"><a href="/">HOME</a></li>
-          <li id="about"><a href="/about">ABOUT US</a></li>
-          <li id="contact"><a href="/compose">COMPOSE</a></li>
-	  <li id="logout"><a href="/logout">LOGOUT</a></li>
-        </ul>
-      </div>
-    </nav>
+    <script
+      src="https://kit.fontawesome.com/b49615b82c.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/css/tailwind.css" />
 
     <body>
-      <div class="container">
+      <header
+        class="fixed top-0 w-full z-30 transition-all duration-300 ease-in-out"
+      >
+        <navbar
+          id="navbar"
+          class="relative z-20 top-0 left-0 right-0 flex justify-between px-12 py-3 font-Nunito shadow-lg bg-secondary text-staticPri"
+        >
+          <div id="logo" class="text-lg flex hover:text-gray-800 items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75h1.5m9 0h-9"
+              />
+            </svg>
+            <a href="/">DAILY JOURNAL </a>
+          </div>
+          <ul class="hidden mobile:flex">
+            <li class="inline-block mx-6 text-sm hover:text-primary p-1">
+              <a href="/">HOME</a>
+            </li>
+            <li class="inline-block mx-6 text-sm hover:text-primary p-1">
+              <a href="/compose">COMPOSE</a>
+            </li>
+            <li class="inline-block mx-6 text-sm hover:text-primary p-1">
+              <a href="/about">ABOUT US</a>
+            </li>
+            <li class="inline-block mx-6 text-sm hover:text-red-500 p-1">
+              <a href="/logout">LOGOUT</a>
+            </li>
+          </ul>
+
+          <!-- drop-down menu button -->
+          <div
+            id="sidebar-button"
+            class="mobile:hidden hover:bg-primary hover:text-secondary"
+          >
+            <button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 20"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-9 h-7"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+            </button>
+          </div>
+        </navbar>
+
+        <!-- drop-down menu -->
+        <div
+          id="sidebar"
+          class="relative sidebar-close font-Nunitoz text-staticPri"
+        >
+          <ul
+            id="menu"
+            class="mobile:hidden flex flex-col absolute top-0 right-0 max-h-96 w-full py-2"
+          >
+            <li
+              class="inline-block mx-6 transition-all ease-in-out duration-300 hover:text-white hover:bg-primary p-1 text-center"
+            >
+              <a href="#">HOME</a>
+            </li>
+            <li
+              class="inline-block mx-6 hover:text-white transition-all ease-in-out duration-300 hover:bg-primary p-1 text-center"
+            >
+              <a href="#">COMPOSE</a>
+            </li>
+            <li
+              class="inline-block mx-6 hover:text-white transition-all ease-in-out duration-300 hover:bg-primary p-1 text-center"
+            >
+              <a href="#">ABOUT US</a>
+            </li>
+            <li
+              class="inline-block mx-6 hover:text-white transition-all ease-in-out duration-300 hover:bg-red-400 p-1 text-center"
+            >
+              <a href="#">LOGOUT</a>
+            </li>
+          </ul>
+        </div>
+      </header>
+      <section
+        class="z-0 font-DM-sans overflow-hidden flex flex-col h-auto w-full"
+      >

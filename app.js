@@ -6,16 +6,17 @@ const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
+const path = require('path');
 
-const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
-const aboutContent = "This page is all about the technologies used in creating the website. Needless to say but this is a team project created for only education purposes."
 const app = express();
 
 app.set('view engine', 'ejs');
-
+app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
+const aboutContent = "This page is all about the technologies used in creating the website. Needless to say but this is a team project created for only education purposes."
 
 app.use(session({
   secret: "Something secret is here.",
@@ -71,7 +72,6 @@ app.get("/", (req, res) => {
         console.log(err);
       } else {
         res.render("home", {
-          startingContent: homeStartingContent,
           homePosts: posts
         });
       }
@@ -133,7 +133,9 @@ app.get("/posts/:postId", (req, res) => {
       } else {
         res.render("post", {
           postTitle: post.title,
-          postContent: post.content
+          postContent: post.content,
+          author: post.author,
+          user: req.session.passport.user
         })
       };
     });

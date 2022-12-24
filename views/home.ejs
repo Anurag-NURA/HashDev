@@ -1,16 +1,74 @@
 <%- include("partials/header"); %>
-<div class="home">
-  <h1>Home</h1>
-  <p><%= startingContent %></p>
+<div id="carousel" class="mx-auto my-10">
+  <button class="carousel__button carousel__button_left">
+    <i class="fa-solid fa-angle-left"></i>
+  </button>
+
+  <div class="carousel__track-container">
+    <ul class="carousel__track">
+      <li id="carousel-slide" class="current-slide">
+        <div class="py-9 my-2 text-center flex flex-col">
+          <span class="text-5xl">Welcome to our Blog website,</span>
+          <span class="font-Nunito font-bold text-5xl text-primary"
+            >Start writing your passion</span
+          >
+          <span class="text-3xl">and</span>
+          <span class="font-Kaushan text-5xl">Publish It!</span>
+        </div>
+      </li>
+
+      <li id="carousel-slide">
+        <div class="relative top-0 bottom-0 object-contain">
+          <img src="./images/stats.jpg" alt="flower" class="h-full w-full" />
+        </div>
+      </li>
+
+      <li id="carousel-slide">
+        <div class="py-9 my-2 mx-auto text-center flex flex-col">
+          <span class="text-5xl">Welcome to our Blog website,</span>
+          <span class="font-Nunito font-bold text-5xl text-primary"
+            >Start writing your passion</span
+          >
+          <span class="text-3xl">and</span>
+          <span class="font-Kaushan text-5xl">Publish It!</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <button class="carousel__button carousel__button_right">
+    <i class="fa-solid fa-angle-right"></i>
+  </button>
+
+  <div id="carousel__nav">
+    <button class="carousel__indicator current-slide"></button>
+    <button class="carousel__indicator"></button>
+    <button class="carousel__indicator"></button>
+  </div>
 </div>
 
-<% homePosts.forEach(element => { %>
-<h1><%= element.title %></h1>
-<p>
-  <%= element.content.substring(0, 100) + "..." %><a
-    href="http://localhost:8000/posts/<%= element._id %> "
-    >Read more</a
-  >
-</p>
-
-<% });%> <%- include("partials/footer"); %>
+<div id="content">
+  <div id="blogs-grid">
+    <div class="blog bg-purple-400 h-20">
+      <h1 class="text-xl font-bold">Something Random</h1>
+      <p class="text-sm">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Est odio,
+        aliquid.
+      </p>
+    </div>
+    <% homePosts.forEach(element => { %>
+    <div class="blog bg-purple-400 h-20">
+      <h1 class="text-xl font-bold"><%= element.title %></h1>
+      <p>
+        <%= element.content.substring(0, 100) + "..." %><a
+          href="http://localhost:8000/posts/<%= element._id %> "
+          class="text-staticPri hover:text-blue-600"
+          >read more</a
+        >
+      </p>
+      <p>~<%= element.author %></p>
+    </div>
+    <% });%>
+  </div>
+</div>
+<%- include("partials/footer"); %>

@@ -1,46 +1,173 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
-@import url('../node_modules/font-awesome/css/font-awesome.min.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-a{
-  color: black;
-}
 
-a:hover{
-  text-decoration: none;
+html{
+  height: 100%;
 }
 
-.container-fluid {
-    padding-top: 70px;
-    padding-bottom: 70px;
-}
-.navbar {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border: 0;
-    border-radius: 0;
-    margin-bottom: 0;
-    font-size: 12px;
-    letter-spacing: 5px;
-}
-.navbar-nav  li a:hover {
-    color: #1abc9c !important;
+body{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.footer {
-	position: fixed; 
-  bottom: 0 ;
-	text-align: center;
-	width: 100%;
-	height: 60px;
-	background-color: #1abc9c;
+section{
+  padding-top: 3rem;
 }
 
-.footer p {
-	margin-top: 25px;
-	font-size: 12px;
-  color: #fff;
+footer{
+  margin-top: auto;
+}
+
+#navbar{
+  letter-spacing: 5px;
+}
+
+#menu{
+  font-size: 1.2rem;
+  background-color: #2ef3cc;
+  z-index: 10;
+}
+
+#sidebar-button{
+  border-radius: 50%;
+  text-align: center;
+  transition: all 200ms ease-in-out;
+}
+
+.sidebar-open{
+  animation: menuOpenAnimation 300ms;
+}
+
+@keyframes menuOpenAnimation{
+  0%{
+    transform: translateY(-100rem);
+  }
+  100%{
+    transform: translateY(0rem);
+  }
+}
+
+.sidebar-close{
+  animation: menuCloseAnimation 2s forwards;
+}
+
+@keyframes menuCloseAnimation{
+  0%{
+    transform: translateY(0rem);
+  }
+  100%{
+    transform: translateY(-100rem);
+  }
+} 
+
+
+
+/* Scroll animations and css*/
+::-webkit-scrollbar{
+  width: 0.7rem;
+}
+
+::-webkit-scrollbar-track{
+  background-color: #777;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: #1abc9c;
+  border-radius: 10px;
+  border: 3px solid #777;
+}
+
+.scroll-down header{
+  transform: translateY(-100%);
+}
+
+.scroll-up header{
+  filter: drop-shadow(0 -10px 20px rgb(170, 170, 170));
+}
+
+ #carousel{
+  position: relative;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 73%;
+  height: 20rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+@media (max-width: 950px) {
+  #carousel{
+    width: 80%;
+  }
+}
+
+.carousel__track-container{ 
+  height: 100%;
+  margin: 0px auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel__track{
+  background-color: #9aecdb;
+  position: relative;
+  height: 100%;
+  transition: all 300ms ease-in-out;
+  
+}
+
+#carousel-slide{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+
+
+.carousel__button{
+  position:absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.carousel__button_right{
+  right: 2rem;
+}
+
+.carousel__button_left{
+  left: 2rem;
+  z-index: 10;
+}
+
+#carousel__nav{
+  position: absolute;
+  bottom: 1rem;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel__indicator{
+  border: 0;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background: rgba(0,0,0,.3);
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.carousel__indicator.current-slide{
+  background: rgba(0,0,0,.75);
 }
 
 #logout :hover{
@@ -52,7 +179,7 @@ a:hover{
     font-family: 'DM Sans', sans-serif;
     border-bottom: 2px solid rgba(148, 147, 147, 0.564);
     color: #1abc9c;
-    font-size: 5rem;
+    font-size: 3rem;
     font-weight: bold;
 }
 
@@ -64,19 +191,19 @@ a:hover{
 
 .form{
     background-color: white;
-    padding: 3rem;
+    padding: 1rem;
     font-family: 'Nunito', sans-serif;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
     border-radius: 12px;
-    margin: 5rem auto;
-    width: 40rem;
+    margin: 3rem auto;
+    width: 30rem;
     text-align: center;
 }
 
 .login-input{
     font-family: 'Nunito', sans-serif;
-    font-size: 2rem;
-    width: 34rem;
+    font-size: 1.3rem;
+    width: 20rem;
     border: none;
     outline: 0;
     border-bottom: 1px solid black;
@@ -85,9 +212,9 @@ a:hover{
 
 
 .submit-button{
-  margin: 2rem;
-  font-size: 2rem;
-  width: 20rem;
+  margin: 1.3rem;
+  font-size: 1.4rem;
+  width: 15rem;
   letter-spacing: 2px;
   text-decoration: none;
   text-transform: uppercase;
@@ -100,7 +227,7 @@ a:hover{
   user-select: none;
   touch-action: manipulation;
 }
-
+  
 .submit-button:active {
   box-shadow: 0px 0px 0px 0px;
   top: 5px;
@@ -117,10 +244,10 @@ a:hover{
   border-radius: 5px;
   background-color: rgb(218, 116, 116);
   position: absolute;
-  bottom: 8rem;
+  bottom: 3rem;
   right: 3rem;
   font-size: 2rem;
-  min-width: 30rem;
+  min-width: 20rem;
 }
 
 .delete-button:hover{
@@ -138,30 +265,14 @@ a:hover{
 }
 
 .person{
-  width: 70%;
-  margin: 100px auto 100px auto;
-  padding-bottom: 50px;
   text-align: left;
   line-height: 2;
 }
 
-.frontEnd_img{
-  height: 200px;
-  width: 250px;
-  float: left;
-  margin-right: 80px;
-}
-
-.backEnd_img{
-  height: 250px;
-  width: 250px;
-  float: right;
-  margin-right: 80px;
-}
 
 .about_heading{
   font-family: 'DM Sans', sans-serif;
-  font-size: 7rem;
+  font-size: 5rem;
   font-weight: bolder;
   color: #1abc9c;
   text-align: center;
@@ -169,6 +280,51 @@ a:hover{
 
 .about_content{
   font-family: 'DM Sans', sans-serif;
-  font-size: 2rem;
+  font-size: 1.3rem;
   text-align: center;
+}
+
+#blogs-grid{
+  width: 73%;
+  
+  margin: 2rem auto;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media(max-width: 850px){
+  #blogs-grid{
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.blog{
+  height: auto;
+  padding: 1.5rem;
+  border-radius: 5px;
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
+#post_form input[type="text"], textarea{
+  border-radius: 5px;
+  background: #efeded;
+  outline: 0;
+  border-width: 0 0 2px;
+}
+
+#post_form input[type="text"]:focus, textarea:focus{
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+
+
+#publish__btn{
+  background-color: #9aecdb;
+  transition: all 200ms ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#publish__btn:active{
+  background-color: #1abc9c;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;  
 }

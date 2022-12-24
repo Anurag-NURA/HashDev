@@ -1,8 +1,134 @@
 
+</section>
 </div>
-  <div class="footer">
-    <p>Created by Group-23 🛠</p>
-  </div>
-</div>
+
+<footer
+class="w-full bg-primary p-2 text-white text-center"
+>
+<p>Created By Anurag 🛠</p>
+</footer>
+
+<script>
+  const button = document.getElementById("sidebar-button");
+const sidebar = document.getElementById("sidebar");
+const body = document.body;
+
+button.addEventListener("click", () => {
+  if (sidebar.classList.contains("sidebar-open")) {
+    sidebar.classList.add("sidebar-close");
+    sidebar.classList.remove("sidebar-open");
+  } else {
+    sidebar.classList.remove("sidebar-close");
+    sidebar.classList.add("sidebar-open");
+  }
+})
+
+
+//for scroll bar effects on navbar
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+
+  if (currentScroll <= 0) {
+    //it means scroll is in the top
+    body.classList.remove("scroll-up");
+  }
+
+  //for scrolling down event
+  if (currentScroll > lastScroll && !body.classList.contains("scroll-down")) {
+    body.classList.remove("scroll-up");
+    body.classList.add("scroll-down");
+  }
+
+  //for scrolling up event
+  if (currentScroll < lastScroll && body.classList.contains("scroll-down")) {
+    body.classList.remove("scroll-down");
+    body.classList.add("scroll-up");
+  }
+
+  lastScroll = currentScroll;
+})
+
+
+//for carousel
+const track = document.querySelector(".carousel__track");//ul tag
+const slides = Array.from(track.children);//all li tags under ul tag
+const nextButton = document.querySelector(".carousel__button_right");
+const prevButton = document.querySelector(".carousel__button_left");
+const dotsNav = document.getElementById("carousel__nav");
+const dots = Array.from(dotsNav.children);
+
+//setting the width of the track 
+const slideWidth = slides[0].getBoundingClientRect().width;
+
+
+
+
+//arrange the slides next to the one another
+for (let index = 0; index < slides.length; index++) {
+  slides[index].style.left = slideWidth * index + "px";
+}
+
+//function for moving from current slide to targeted slide smoothly
+const moveToSlide = (track, currentSlide, targetSlide) => {
+  track.style.transform = `translateX(-${targetSlide.style.left})`;
+  currentSlide.classList.remove('current-slide');
+  targetSlide.classList.add('current-slide');
+}
+
+const udpateDots = (currentDot, targetDot) => {
+  currentDot.classList.remove('current-slide');
+  targetDot.classList.add('current-slide');
+}
+
+//when click left, move slides to the left
+prevButton.addEventListener('click', () => {
+  //current li tag
+  const currentSlide = track.querySelector('.current-slide');
+
+  //li tag next to current li tag
+  const prevSlide = currentSlide.previousElementSibling;
+
+  //for dots
+  const currentDot = dotsNav.querySelector('.current-slide');
+  const prevDot = currentDot.previousElementSibling;
+
+
+  moveToSlide(track, currentSlide, prevSlide);
+  udpateDots(currentDot, prevDot);
+});
+
+//when click right, move slides to the right
+nextButton.addEventListener('click', () => {
+  //current li tag
+  const currentSlide = track.querySelector('.current-slide');
+
+  //li tag next to current li tag
+  const nextSlide = currentSlide.nextElementSibling;
+  const currentDot = dotsNav.querySelector('.current-slide');
+  const nextDot = currentDot.nextElementSibling;
+
+  moveToSlide(track, currentSlide, nextSlide);
+  udpateDots(currentDot, nextDot);
+});
+
+//clicked nav dot will show that slide
+dotsNav.addEventListener('click', (event) => {
+  //which indicator was clicked on
+  const targetDot = event.target.closest('button');
+
+  if (!targetDot) {
+    return;//it means if target is not a button do nothing
+  }
+
+  const currentSlide = track.querySelector('.current-slide');
+  const currentDot = dotsNav.querySelector('.current-slide');
+  const targetIndex = dots.findIndex(dot => dot === targetDot);
+  const targetSlide = slides[targetIndex];
+
+  moveToSlide(track, currentSlide, targetSlide);
+  udpateDots(currentDot, targetDot)
+});
+</script>
 </body>
 </html>

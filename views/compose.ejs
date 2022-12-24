@@ -1,26 +1,39 @@
 <%- include("partials/header"); %>
-<h1>Compose</h1>
 
-<form action="/compose" method="post">
-  <div class="form-group">
-    <label for="inputdefault">Title</label>
-    <input
-      class="form-control"
-      id="inputdefault"
-      type="text"
-      name="composeText"
-      autocomplete="off"
-    />
+<form
+  id="post_form"
+  class="bg-secondary flex flex-col my-20 mx-auto p-8 w-4/5 border-none shadow-lg shadow-staticPri rounded-lg"
+  action="/compose"
+  method="post"
+>
+  <label class="text-xl font-Nunito" for="inputdefault">Title</label>
+  <input
+    class="text-lg p-2"
+    id="inputdefault"
+    type="text"
+    name="composeText"
+    autocomplete="off"
+    placeholder="Title of the post"
+  />
 
-    <label for="inputdefault">Post</label>
-    <textarea
-      class="form-control"
-      id="textAreaExample"
-      name="composePost"
-      rows="4"
-    ></textarea>
+  <label class="text-xl font-Nunito pt-6" for="inputdefault">Post</label>
+  <textarea
+    class="text-lg p-2"
+    id="textAreaExample"
+    name="composePost"
+    rows="4"
+    placeholder="Post Message"
+  ></textarea>
+  <div class="flex justify-end pt-6">
+    <button
+      id="publish__btn"
+      class="w-auto h-auto rounded-lg font-Kaushan text-2xl py-3 px-6"
+      type="submit"
+      name="button"
+    >
+      Publish Now!
+    </button>
   </div>
-
-  <button type="submit" name="button" class="btn btn-primary">Publish</button>
 </form>
+
 <%- include("partials/footer"); %>
