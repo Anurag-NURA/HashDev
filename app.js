@@ -7,15 +7,18 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const path = require('path');
+const methodOverride = require('method-override');
+const { comment } = require("postcss");
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
+
 const aboutContent = "This page is all about the technologies used in creating the website. Needless to say but this is a team project created for only education purposes."
 
 app.use(session({
@@ -38,7 +41,8 @@ mongoose.connect("mongodb://localhost:27017/blogDB")
 
 const userSchema = new mongoose.Schema({
   email: String,
-  password: String
+  password: String,
+  admin: Boolean
 });
 userSchema.plugin(passportLocalMongoose);
 const User = new mongoose.model("User", userSchema);
@@ -47,6 +51,21 @@ passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+
+
+const CommentSchema = new mongoose.Schema({
+  content: {
+    type: String,
+  },
+  author: {
+    type: String,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
 
 
 const blogSchema = new mongoose.Schema({
@@ -58,9 +77,12 @@ const blogSchema = new mongoose.Schema({
   content: {
     type: String,
     required: true
-  }
+  },
+  comment: [CommentSchema]
 });
+
 const Post = mongoose.model('Post', blogSchema);
+
 
 
 //for home page
@@ -81,94 +103,133 @@ app.get("/", (req, res) => {
   }
 });
 
+
+
+//for registration
 app.get("/register", (req, res) => {
   res.render("register");
-});
+})
+  .post("/register", (req, res) => {
+    const { username, password } = req.body;
 
-app.post("/register", (req, res) => {
-  User.register({
-    username: req.body.username,
-  }, req.body.password, (err, user) => {
-    if (err) {
-      console.log(err);
-      res.redirect("/register");
-    } else {
-      passport.authenticate("local")(req, res, () => {
-        res.redirect("/");
+    if (username === "" || password === "") {
+      res.render("message", {
+        messageTitle: "Validation Error",
+        messageContent: "Please enter valid username and password"
       })
+    } else {
+      User.register({
+        username: username,
+      }, password, (err, user) => {
+        if (err) {
+          console.log(err);
+          res.redirect("/register");
+        } else {
+          passport.authenticate("local")(req, res, () => {
+            res.redirect("/");
+          })
+        }
+      });
     }
   });
-});
 
-app.get("/login", (req, res) => {
-  res.render("login");
-});
 
-app.post("/login", (req, res) => {
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password
+
+//for login
+app
+  .get("/login", (req, res) => {
+    res.render("login");
+  })
+  .post("/login", (req, res) => {
+
+  })
+
+
+
+//for displaying individual posts
+app
+  .get("/posts/:postId", (req, res) => {
+    const requestedId = req.params.postId;
+
+    if (req.isAuthenticated()) {
+      Post.findOne({ _id: requestedId }, (err, post) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("post", {
+            postTitle: post.title,
+            postContent: post.content,
+            author: post.author,
+            user: req.session.passport.user,
+            postId: post._id
+          })
+        };
+      });
+    } else {
+      res.redirect("/login");
+    }
   });
 
-  req.login(user, (err) => {
-    if (err) {
-      console.log(err);
+
+//for writing a comment 
+app.get("/:articleId/comments", (req, res) => {
+  res.render("comment");
+})
+
+
+
+
+
+//for deleting a post
+app.delete("/posts/:postId/delete", (req, res) => {
+  const { postId } = req.params;
+  const result = Post.findOneAndDelete({ _id: postId });
+  result.then((post) => {
+    if (!post) {
+      res.render("message", {
+        messageTitle: "Document not found",
+        messageContent: "The Selected Post was not found in the database"
+      });
     } else {
-      passport.authenticate("local")(req, res, () => {
-        res.redirect('/');
+      res.render("message", {
+        messageTitle: "Deleted successfully",
+        messageContent: `The post titled ${post.title} whose author was ${post.author} has been deleted successfully`
       });
     }
   })
+    .catch(err => console.log(err));
 });
 
 
 
-app.get("/posts/:postId", (req, res) => {
-  const requestedId = req.params.postId;
 
-  if (req.isAuthenticated()) {
-    Post.findOne({ _id: requestedId }, (err, post) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render("post", {
-          postTitle: post.title,
-          postContent: post.content,
-          author: post.author,
-          user: req.session.passport.user
-        })
-      };
-    });
-  } else {
-    res.redirect("/login");
-  }
-});
-
-app.post("/posts/:postId", (req, res) => {
-  Post.findOne({ _id: req.params.postId }, (err, post) => {
-    if (err) {
+//for editing a post
+app
+  .get("/posts/:postId/edit", async (req, res) => {
+    try {
+      const { postId } = req.params;
+      const result = await Post.findById(postId);
+      res.render("edit", {
+        prevTitle: result.title,
+        prevContent: result.content,
+        postId: result._id
+      })
+    } catch (err) {
       console.log(err);
-    } else {
-      if (post.author === req.session.passport.user) {
-        Post.deleteOne({ _id: req.params.postId }, (err) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.render("message", {
-              messageTitle: "Post deleted",
-              messageContent: "The post has been deleted successfully"
-            });
-          }
-        })
-      } else {
-        res.render("message", {
-          messageTitle: "Unauthorized Action",
-          messageContent: "You are not the creator of this post"
-        });
-      }
+    }
+  })
+  .put("/posts/:postId/edit", async (req, res) => {
+    const { updatedTitle, updatedContent } = req.body;
+    try {
+      Post.findOneAndUpdate({ _id: req.params.postId }, { title: updatedTitle, content: updatedContent }).then(() => {
+        res.redirect(`/posts/${req.params.postId}`);
+      })
+        .catch(err => { console.log(err); });
+
+    } catch (error) {
+      console.log(error);
     }
   });
-});
 
 
 
@@ -183,33 +244,34 @@ app.get("/about", (req, res) => {
 
 
 //for compose page
-app.get("/compose", (req, res) => {
-  if (req.isAuthenticated()) {
-    //renders compose.ejs file on "/compose" page
-    res.render("compose");
-  } else {
-    res.redirect("/login");
-  }
-});
-
-app.post("/compose", async (req, res) => {
-
-  const composePost = new Post({
-    author: req.session.passport.user,
-    title: req.body.composeText,
-    content: req.body.composePost
-  });
-
-  await composePost.save((err) => {
-    if (err) {
-      //if saving fails
-      console.log(err);
+app
+  .get("/compose", (req, res) => {
+    if (req.isAuthenticated()) {
+      //renders compose.ejs file on "/compose" page
+      res.render("compose");
     } else {
-      //than redirected to the home page to display the composed post
+      res.redirect("/login");
+    }
+  })
+  .post("/compose", async (req, res) => {
+
+    const composePost = new Post({
+      author: req.session.passport.user,
+      title: req.body.composeText,
+      content: req.body.composePost
+    });
+    try {
+      await composePost.save();
       res.redirect("/");
+    } catch (error) {
+      if (error.name === "ValidationError") {
+        res.render("message", {
+          messageTitle: "Validation Error",
+          messageContent: "Please fill in the title and content field to be able to publish the post"
+        })
+      } else { console.log(error); }
     }
   });
-});
 
 
 

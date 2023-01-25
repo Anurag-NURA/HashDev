@@ -704,6 +704,11 @@ video {
   background-color: rgb(192 132 252 / var(--tw-bg-opacity));
 }
 
+.bg-blue-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
+}
+
 .bg-primary {
   --tw-bg-opacity: 1;
   background-color: rgb(26 188 156 / var(--tw-bg-opacity));
@@ -1104,6 +1109,15 @@ footer{
   }
 }
 
+.edit-button{
+  border-radius: 5px;
+  position: absolute;
+  bottom: 3rem;
+  right: 14rem;
+  font-size: 2rem;
+  min-width: 10rem;
+}
+
 .delete-button {
   border-radius: 5px;
   background-color: rgb(218, 116, 116);
@@ -1111,7 +1125,7 @@ footer{
   bottom: 3rem;
   right: 3rem;
   font-size: 2rem;
-  min-width: 20rem;
+  min-width: 10rem;
 }
 
 .delete-button:hover{
@@ -1188,6 +1202,11 @@ footer{
 #publish__btn:active{
   background-color: #1abc9c;
   box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.hover\:bg-cyan-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(8 145 178 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-staticPri:hover {

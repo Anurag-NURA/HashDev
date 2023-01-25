@@ -1,0 +1,42 @@
+<%- include("partials/header"); %>
+
+<form
+  id="post_form"
+  class="bg-secondary flex flex-col my-20 mx-auto p-8 w-4/5 border-none shadow-lg shadow-staticPri rounded-lg"
+  action="/posts/<%= postId %>/edit?_method=PUT"
+  method="POST"
+>
+  <label class="text-xl font-Nunito" for="inputdefault">Title</label>
+  <input
+    class="text-lg p-2"
+    id="inputdefault"
+    type="text"
+    name="updatedTitle"
+    autocomplete="off"
+    placeholder="Title of the post"
+    value="<%= prevTitle %> "
+  />
+
+  <label class="text-xl font-Nunito pt-6" for="inputdefault">Post</label>
+  <textarea
+    class="text-lg p-2"
+    id="textAreaExample"
+    name="updatedContent"
+    rows="4"
+    placeholder="Post Message"
+  >
+<%= prevContent %> </textarea
+  >
+  <div class="flex justify-end pt-6">
+    <button
+      id="publish__btn"
+      class="w-auto h-auto rounded-lg font-Kaushan text-2xl py-3 px-6"
+      type="submit"
+      name="button"
+    >
+      Update Now!
+    </button>
+  </div>
+</form>
+
+<%- include("partials/footer"); %>

@@ -240,6 +240,15 @@ footer{
   }
 }
 
+.edit-button{
+  border-radius: 5px;
+  position: absolute;
+  bottom: 3rem;
+  right: 14rem;
+  font-size: 2rem;
+  min-width: 10rem;
+}
+
 .delete-button {
   border-radius: 5px;
   background-color: rgb(218, 116, 116);
@@ -247,7 +256,7 @@ footer{
   bottom: 3rem;
   right: 3rem;
   font-size: 2rem;
-  min-width: 20rem;
+  min-width: 10rem;
 }
 
 .delete-button:hover{
