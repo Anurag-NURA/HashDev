@@ -5,7 +5,9 @@
   "main": "app.js", 
   "scripts": {
     "start": "node index.js",
-    "build:css": "tailwindcss build -i public/css/styles.css -o public/css/tailwind.css -w"
+    "build": "npm run build:css",
+    "build:css": "tailwindcss build -i public/css/styles.css -o public/css/tailwind.css",
+    "dev:css": "tailwindcss build -i public/css/styles.css -o public/css/tailwind.css -w"
   },
   "author": "",
   "license": "ISC",

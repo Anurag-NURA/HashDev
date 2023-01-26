@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <title>Daily Journal</title>
+    <title>HashDev</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,94 +17,93 @@
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="/css/tailwind.css" />
-
-https://github.com/Anurag-NURA/BlogPost/blob/master/node_modules/moment/moment.js
-    <body>
-      <header
-        class="fixed top-0 w-full z-30 transition-all duration-300 ease-in-out"
+  </head>
+  <body>
+    <header
+      class="fixed top-0 w-full z-30 transition-all duration-300 ease-in-out"
+    >
+      <navbar
+        id="navbar"
+        class="relative z-20 top-0 left-0 right-0 flex justify-between px-12 py-3 font-Nunito shadow-lg bg-secondary text-staticPri"
       >
-        <navbar
-          id="navbar"
-          class="relative z-20 top-0 left-0 right-0 flex justify-between px-12 py-3 font-Nunito shadow-lg bg-secondary text-staticPri"
-        >
-          <div
-            id="logo"
-            class="text-lg font-bold flex hover:text-gray-800 items-center"
-          >
-            <i class="fa-brands fa-connectdevelop"></i>
-            <a href="/">HashDev </a>
-          </div>
-          <ul class="hidden mobile:flex">
-            <li class="inline-block mx-6 text-sm hover:text-primary p-1">
-              <a href="/">HOME</a>
-            </li>
-            <li class="inline-block mx-6 text-sm hover:text-primary p-1">
-              <a href="/compose">COMPOSE</a>
-            </li>
-            <li class="inline-block mx-6 text-sm hover:text-primary p-1">
-              <a href="/about">ABOUT US</a>
-            </li>
-            <li class="inline-block mx-6 text-sm hover:text-red-500 p-1">
-              <a href="/logout">LOGOUT</a>
-            </li>
-          </ul>
-
-          <!-- drop-down menu button -->
-          <div
-            id="sidebar-button"
-            class="mobile:hidden hover:bg-primary hover:text-secondary"
-          >
-            <button>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 20"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-9 h-7"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
-            </button>
-          </div>
-        </navbar>
-
-        <!-- drop-down menu -->
         <div
-          id="sidebar"
-          class="relative sidebar-close font-Nunitoz text-staticPri"
+          id="logo"
+          class="text-lg font-bold flex hover:text-gray-800 items-center"
         >
-          <ul
-            id="menu"
-            class="mobile:hidden flex flex-col absolute top-0 right-0 max-h-96 w-full py-2"
-          >
-            <li
-              class="inline-block mx-6 transition-all ease-in-out duration-300 hover:text-white hover:bg-primary p-1 text-center"
-            >
-              <a href="/">HOME</a>
-            </li>
-            <li
-              class="inline-block mx-6 hover:text-white transition-all ease-in-out duration-300 hover:bg-primary p-1 text-center"
-            >
-              <a href="/compose">COMPOSE</a>
-            </li>
-            <li
-              class="inline-block mx-6 hover:text-white transition-all ease-in-out duration-300 hover:bg-primary p-1 text-center"
-            >
-              <a href="/about">ABOUT US</a>
-            </li>
-            <li
-              class="inline-block mx-6 hover:text-white transition-all ease-in-out duration-300 hover:bg-red-400 p-1 text-center"
-            >
-              <a href="/logout">LOGOUT</a>
-            </li>
-          </ul>
+          <i class="fa-brands fa-connectdevelop"></i>
+          <a href="/">HashDev </a>
         </div>
-      </header>
-      <section
-        class="z-0 font-DM-sans overflow-hidden flex flex-col h-auto w-full"
+        <ul class="hidden mobile:flex">
+          <li class="inline-block mx-6 text-sm hover:text-primary p-1">
+            <a href="/">HOME</a>
+          </li>
+          <li class="inline-block mx-6 text-sm hover:text-primary p-1">
+            <a href="/compose">COMPOSE</a>
+          </li>
+          <li class="inline-block mx-6 text-sm hover:text-primary p-1">
+            <a href="/about">ABOUT US</a>
+          </li>
+          <li class="inline-block mx-6 text-sm hover:text-red-500 p-1">
+            <a href="/logout">LOGOUT</a>
+          </li>
+        </ul>
+
+        <!-- drop-down menu button -->
+        <div
+          id="sidebar-button"
+          class="mobile:hidden hover:bg-primary hover:text-secondary"
+        >
+          <button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 20"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-9 h-7"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </button>
+        </div>
+      </navbar>
+
+      <!-- drop-down menu -->
+      <div
+        id="sidebar"
+        class="relative sidebar-close font-Nunitoz text-staticPri"
       >
+        <ul
+          id="menu"
+          class="mobile:hidden flex flex-col absolute top-0 right-0 max-h-96 w-full py-2"
+        >
+          <li
+            class="inline-block mx-6 transition-all ease-in-out duration-300 hover:text-white hover:bg-primary p-1 text-center"
+          >
+            <a href="/">HOME</a>
+          </li>
+          <li
+            class="inline-block mx-6 hover:text-white transition-all ease-in-out duration-300 hover:bg-primary p-1 text-center"
+          >
+            <a href="/compose">COMPOSE</a>
+          </li>
+          <li
+            class="inline-block mx-6 hover:text-white transition-all ease-in-out duration-300 hover:bg-primary p-1 text-center"
+          >
+            <a href="/about">ABOUT US</a>
+          </li>
+          <li
+            class="inline-block mx-6 hover:text-white transition-all ease-in-out duration-300 hover:bg-red-400 p-1 text-center"
+          >
+            <a href="/logout">LOGOUT</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <section
+      class="z-0 font-DM-sans overflow-hidden flex flex-col h-auto w-full"
+    >

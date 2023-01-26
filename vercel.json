@@ -11,8 +11,5 @@
       "src": "/.*",
       "dest": "/index.js"
     }
-  ],
-  "scripts":{
-    "prebuild": "npm run build:css"
-  }
+  ]
 }
