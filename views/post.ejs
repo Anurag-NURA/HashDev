@@ -10,11 +10,13 @@
     <ul class="comment-list">
       <% postComments.forEach(comment => {%>
       <li class="comment py-3">
-        <div class="commentHeading text-sm">
-          <div class="commentAuthor"><%= comment.author%></div>
-          <div class="commentTime"><%= comment.createdAt%></div>
+        <div class="commentHeading text-gray-500">
+          <div class="commentAuthor font-bold text-sm">
+            <%= comment.author%>
+          </div>
+          <div class="commentTime text-xs"><%= comment.createdAt%></div>
         </div>
-        <div class="commentContent text-xs"><%= comment.content%></div>
+        <div class="commentContent text-lg"><%= comment.content%></div>
       </li>
       <% }); %>
     </ul>
