@@ -6,15 +6,17 @@
     <p class="text-base mt-6"><%= postContent %></p>
   </div>
   <div class="w-3/4 mx-auto">
-    <h1 class="font-bold">Comments</h1>
+    <h1 class="font-bold text-3xl">Comments</h1>
     <ul class="comment-list">
-      <% postComments.forEach(comment => {%>
+      <% if(postComments.length === 0) {%>
+      <h1>No comments</h1>
+      <% } %> <% postComments.forEach(comment => {%>
       <li class="comment py-3">
         <div class="commentHeading text-gray-500">
           <div class="commentAuthor font-bold text-sm">
             <%= comment.author%>
           </div>
-          <div class="commentTime text-xs"><%= comment.createdAt%></div>
+          <div class="commentTime text-xs"><%= comment.createdAt %></div>
         </div>
         <div class="commentContent text-lg"><%= comment.content%></div>
       </li>
@@ -51,4 +53,5 @@
     <% } %>
   </div>
 </div>
+
 <%- include("partials/footer") %>

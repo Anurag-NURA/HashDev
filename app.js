@@ -17,7 +17,7 @@ app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-
+const momentPath = path.join(__dirname, 'node_modules', 'moment', 'moment.js');
 const aboutContent = "This page is all about the technologies used in creating the website. Needless to say but this is a team project created for only education purposes."
 
 app.use(session({
@@ -30,7 +30,7 @@ app.use(passport.session());
 
 
 
-mongoose.connect("mongodb://localhost:27017/blogDB")
+mongoose.connect("mongodb+srv://admin-ANURAG:asrblaze@cluster0.aygewv2.mongodb.net/blogDB")
   .then(() => {
     console.log("Connection established!!!");
   })
@@ -157,7 +157,8 @@ app.get("/posts/:postId", (req, res) => {
           author: post.author,
           user: req.session.passport.user,
           postId: post._id,
-          postComments: post.comment
+          postComments: post.comment,
+          momentPath: momentPath
         })
       };
     });
