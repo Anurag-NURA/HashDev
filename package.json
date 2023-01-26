@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build:css": "tailwindcss build -i public/css/styles.css -o public/css/tailwind.css -w"
+    "build:css": "tailwindcss build -i public/css/styles.css -o public/css/tailwind.css -w",
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
