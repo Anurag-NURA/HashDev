@@ -10,6 +10,7 @@ const path = require('path');
 const methodOverride = require('method-override');
 
 const app = express();
+const PORT = process.env.PORT || 8000;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -307,6 +308,6 @@ app.get("/logout", (req, res, next) => {
 });
 
 
-app.listen(8000, function () {
-  console.log("Server started on port 8000");
+app.listen(PORT, function () {
+  console.log(`Server started on port ${PORT}`);
 });
