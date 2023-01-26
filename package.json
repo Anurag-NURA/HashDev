@@ -2,10 +2,11 @@
   "name": "ejs-challenge",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "app.js", 
+  "type":"module",
   "scripts": {
-    "build:css": "tailwindcss build -i public/css/styles.css -o public/css/tailwind.css -w",
-    "start": "node app.js"
+    "start": "node app.js",
+    "build:css": "tailwindcss build -i public/css/styles.css -o public/css/tailwind.css -w"
   },
   "author": "",
   "license": "ISC",

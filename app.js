@@ -158,7 +158,6 @@ app.get("/posts/:postId", (req, res) => {
           user: req.session.passport.user,
           postId: post._id,
           postComments: post.comment,
-          momentPath: momentPath
         })
       };
     });
@@ -228,19 +227,20 @@ app.delete("/posts/:postId/delete", (req, res) => {
 
 
 //for editing a post
-app.get("/posts/:postId/edit", async (req, res) => {
-  try {
-    const { postId } = req.params;
-    const result = await Post.findById(postId);
-    res.render("edit", {
-      prevTitle: result.title,
-      prevContent: result.content,
-      postId: result._id
-    })
-  } catch (err) {
-    console.log(err);
-  }
-})
+app
+  .get("/posts/:postId/edit", async (req, res) => {
+    try {
+      const { postId } = req.params;
+      const result = await Post.findById(postId);
+      res.render("edit", {
+        prevTitle: result.title,
+        prevContent: result.content,
+        postId: result._id
+      })
+    } catch (err) {
+      console.log(err);
+    }
+  })
   .put("/posts/:postId/edit", async (req, res) => {
     const { updatedTitle, updatedContent } = req.body;
     try {
@@ -267,14 +267,15 @@ app.get("/about", (req, res) => {
 
 
 //for compose page
-app.get("/compose", (req, res) => {
-  if (req.isAuthenticated()) {
-    //renders compose.ejs file on "/compose" page
-    res.render("compose");
-  } else {
-    res.redirect("/login");
-  }
-})
+app
+  .get("/compose", (req, res) => {
+    if (req.isAuthenticated()) {
+      //renders compose.ejs file on "/compose" page
+      res.render("compose");
+    } else {
+      res.redirect("/login");
+    }
+  })
   .post("/compose", async (req, res) => {
 
     const composePost = new Post({
