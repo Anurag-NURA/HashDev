@@ -240,28 +240,14 @@ footer{
   }
 }
 
-.edit-button{
+
+.button {
   border-radius: 5px;
-  position: absolute;
-  bottom: 3rem;
-  right: 14rem;
-  font-size: 2rem;
-  min-width: 10rem;
+  font-size: 1rem;
+  min-width: 5rem;
+  padding: 2px 20px;
 }
 
-.delete-button {
-  border-radius: 5px;
-  background-color: rgb(218, 116, 116);
-  position: absolute;
-  bottom: 3rem;
-  right: 3rem;
-  font-size: 2rem;
-  min-width: 10rem;
-}
-
-.delete-button:hover{
-  background-color: rgb(146, 42, 42);
-}
 
 .post-heading{
   font-family: 'Nunito', sans-serif;
@@ -301,6 +287,9 @@ footer{
   gap: 2rem;
   grid-template-columns: repeat(4, 1fr);
 }
+
+
+
 
 @media(max-width: 850px){
   #blogs-grid{

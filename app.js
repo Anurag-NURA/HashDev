@@ -8,7 +8,6 @@ const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const path = require('path');
 const methodOverride = require('method-override');
-const { comment } = require("postcss");
 
 const app = express();
 
@@ -41,14 +40,12 @@ mongoose.connect("mongodb://localhost:27017/blogDB")
 
 const userSchema = new mongoose.Schema({
   email: String,
-  password: String,
-  admin: Boolean
+  password: String
 });
 userSchema.plugin(passportLocalMongoose);
 const User = new mongoose.model("User", userSchema);
 
 passport.use(User.createStrategy());
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -66,7 +63,6 @@ const CommentSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-
 
 const blogSchema = new mongoose.Schema({
   author: String,
@@ -140,42 +136,69 @@ app
   .get("/login", (req, res) => {
     res.render("login");
   })
-  .post("/login", (req, res) => {
-
-  })
-
+  .post('/login', passport.authenticate('local', { failureRedirect: '/login', failureMessage: true }),
+    function (req, res) {
+      res.redirect('/');
+    });
 
 
 //for displaying individual posts
-app
-  .get("/posts/:postId", (req, res) => {
-    const requestedId = req.params.postId;
+app.get("/posts/:postId", (req, res) => {
+  const requestedId = req.params.postId;
 
-    if (req.isAuthenticated()) {
-      Post.findOne({ _id: requestedId }, (err, post) => {
-        if (err) {
-          console.log(err);
-        } else {
-          res.render("post", {
-            postTitle: post.title,
-            postContent: post.content,
-            author: post.author,
-            user: req.session.passport.user,
-            postId: post._id
-          })
-        };
-      });
-    } else {
-      res.redirect("/login");
-    }
-  });
+  if (req.isAuthenticated()) {
+    Post.findOne({ _id: requestedId }, (err, post) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("post", {
+          postTitle: post.title,
+          postContent: post.content,
+          author: post.author,
+          user: req.session.passport.user,
+          postId: post._id,
+          postComments: post.comment
+        })
+      };
+    });
+  } else {
+    res.redirect("/login");
+  }
+});
 
 
 //for writing a comment 
-app.get("/:articleId/comments", (req, res) => {
-  res.render("comment");
-})
-
+app
+  .get("/posts/:postId/comment", async (req, res) => {
+    const { postId } = req.params;
+    const result = await Post.findOne({ _id: postId });
+    if (result === null) {
+      res.render("message", {
+        messageTitle: "Unknown post",
+        messageContent: "Post does not exist"
+      })
+    } else {
+      res.render("comment", {
+        postId: postId
+      });
+    }
+  })
+  .post("/posts/:postId/comment", async (req, res) => {
+    const commentAuthor = req.session.passport.user;
+    const commentContent = req.body.commentPost;
+    try {
+      let post = await Post.findOne({ _id: req.params.postId });
+      const comment = {
+        content: commentContent,
+        author: commentAuthor
+      }
+      post.comment = [comment, ...post.comment];
+      await post.save();
+      res.redirect(`/posts/${req.params.postId}`);
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
 
 
@@ -204,20 +227,19 @@ app.delete("/posts/:postId/delete", (req, res) => {
 
 
 //for editing a post
-app
-  .get("/posts/:postId/edit", async (req, res) => {
-    try {
-      const { postId } = req.params;
-      const result = await Post.findById(postId);
-      res.render("edit", {
-        prevTitle: result.title,
-        prevContent: result.content,
-        postId: result._id
-      })
-    } catch (err) {
-      console.log(err);
-    }
-  })
+app.get("/posts/:postId/edit", async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const result = await Post.findById(postId);
+    res.render("edit", {
+      prevTitle: result.title,
+      prevContent: result.content,
+      postId: result._id
+    })
+  } catch (err) {
+    console.log(err);
+  }
+})
   .put("/posts/:postId/edit", async (req, res) => {
     const { updatedTitle, updatedContent } = req.body;
     try {
@@ -244,15 +266,14 @@ app.get("/about", (req, res) => {
 
 
 //for compose page
-app
-  .get("/compose", (req, res) => {
-    if (req.isAuthenticated()) {
-      //renders compose.ejs file on "/compose" page
-      res.render("compose");
-    } else {
-      res.redirect("/login");
-    }
-  })
+app.get("/compose", (req, res) => {
+  if (req.isAuthenticated()) {
+    //renders compose.ejs file on "/compose" page
+    res.render("compose");
+  } else {
+    res.redirect("/login");
+  }
+})
   .post("/compose", async (req, res) => {
 
     const composePost = new Post({

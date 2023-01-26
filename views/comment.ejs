@@ -3,26 +3,18 @@
 <form
   id="post_form"
   class="bg-secondary flex flex-col my-20 mx-auto p-8 w-4/5 border-none shadow-lg shadow-staticPri rounded-lg"
-  action="/compose"
+  action="/posts/<%= postId%>/comment"
   method="post"
 >
-  <label class="text-xl font-Nunito" for="inputdefault">Title</label>
-  <input
-    class="text-lg p-2"
-    id="inputdefault"
-    type="text"
-    name="composeText"
-    autocomplete="off"
-    placeholder="Title of the post"
-  />
-
-  <label class="text-xl font-Nunito pt-6" for="inputdefault">Post</label>
+  <label class="text-xl font-Nunito pt-6" for="inputdefault"
+    >Write a comment about the post</label
+  >
   <textarea
     class="text-lg p-2"
     id="textAreaExample"
-    name="composePost"
+    name="commentPost"
     rows="4"
-    placeholder="Post Message"
+    placeholder="comment..."
   ></textarea>
   <div class="flex justify-end pt-6">
     <button
@@ -31,7 +23,7 @@
       type="submit"
       name="button"
     >
-      Publish Now!
+      Comment Now!
     </button>
   </div>
 </form>

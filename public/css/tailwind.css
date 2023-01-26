@@ -578,6 +578,11 @@ video {
   margin-right: 1.5rem;
 }
 
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
 .mt-6 {
   margin-top: 1.5rem;
 }
@@ -704,9 +709,19 @@ video {
   background-color: rgb(192 132 252 / var(--tw-bg-opacity));
 }
 
+.bg-green-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(74 222 128 / var(--tw-bg-opacity));
+}
+
 .bg-blue-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(96 165 250 / var(--tw-bg-opacity));
+}
+
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
 
 .bg-primary {
@@ -819,6 +834,11 @@ video {
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 .font-bold {
@@ -1109,27 +1129,11 @@ footer{
   }
 }
 
-.edit-button{
+.button {
   border-radius: 5px;
-  position: absolute;
-  bottom: 3rem;
-  right: 14rem;
-  font-size: 2rem;
-  min-width: 10rem;
-}
-
-.delete-button {
-  border-radius: 5px;
-  background-color: rgb(218, 116, 116);
-  position: absolute;
-  bottom: 3rem;
-  right: 3rem;
-  font-size: 2rem;
-  min-width: 10rem;
-}
-
-.delete-button:hover{
-  background-color: rgb(146, 42, 42);
+  font-size: 1rem;
+  min-width: 5rem;
+  padding: 2px 20px;
 }
 
 .post-heading{
@@ -1204,9 +1208,19 @@ footer{
   box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
+.hover\:bg-green-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-cyan-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(8 145 178 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-red-800:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(153 27 27 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-staticPri:hover {

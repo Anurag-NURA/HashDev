@@ -1,20 +1,52 @@
 <%- include("partials/header") %>
-<div class="my-10 mx-auto w-3/4">
-  <h1 class="text-7xl"><%= postTitle %></h1>
-  <h1 class="text-2xl">~<%= author %></h1>
-  <p class="text-base mt-6"><%= postContent %></p>
-</div>
-<% if(author===user){ %>
-<a href="/posts/<%= postId %>/edit">
-  <button class="edit-button bg-blue-400 hover:bg-cyan-600">
-    <i class="fa-solid fa-pen-to-square fa-xs"></i>
-    Edit
-  </button>
-</a>
+<div class="post flex flex-col">
+  <div class="my-10 mx-auto w-3/4">
+    <h1 class="text-7xl"><%= postTitle %></h1>
+    <h1 class="text-2xl">~<%= author %></h1>
+    <p class="text-base mt-6"><%= postContent %></p>
+  </div>
+  <div class="w-3/4 mx-auto">
+    <h1 class="font-bold">Comments</h1>
+    <ul class="comment-list">
+      <% postComments.forEach(comment => {%>
+      <li class="comment py-3">
+        <div class="commentHeading text-sm">
+          <div class="commentAuthor"><%= comment.author%></div>
+          <div class="commentTime"><%= comment.createdAt%></div>
+        </div>
+        <div class="commentContent text-xs"><%= comment.content%></div>
+      </li>
+      <% }); %>
+    </ul>
+  </div>
 
-<form method="POST" action="/posts/<%= postId %>/delete?_method=DELETE">
-  <button type="submit" class="delete-button">
-    <i class="fa-solid fa-trash fa-xs"></i> Delete
-  </button>
-</form>
-<% } %> <%- include("partials/footer") %>
+  <div class="buttons-list my-5 mx-auto w-3/4">
+    <a href="/posts/<%= postId %>/comment">
+      <button class="button bg-green-400 hover:bg-green-600">
+        <i class="fa-solid fa-comment"></i> Comment
+      </button>
+    </a>
+    <% if(author===user){ %>
+    <a href="/posts/<%= postId %>/edit">
+      <button class="button bg-blue-400 hover:bg-cyan-600">
+        <i class="fa-solid fa-pen-to-square fa-xs"></i>
+        Edit
+      </button>
+    </a>
+
+    <form
+      method="POST"
+      action="/posts/<%= postId %>/delete?_method=DELETE"
+      class="inline-block"
+    >
+      <button
+        type="submit"
+        class="button bg-red-600 text-white hover:bg-red-800"
+      >
+        <i class="fa-solid fa-trash fa-xs"></i> Delete
+      </button>
+    </form>
+    <% } %>
+  </div>
+</div>
+<%- include("partials/footer") %>
