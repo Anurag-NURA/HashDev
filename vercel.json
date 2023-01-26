@@ -8,8 +8,11 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/"
+      "src": "/.*",
+      "dest": "/index.js"
     }
-  ]
+  ],
+  "scripts":{
+    "prebuild": "npm run build:css"
+  }
 }
