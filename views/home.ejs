@@ -60,8 +60,9 @@
     <div class="blog bg-purple-400 h-20">
       <h1 class="text-xl font-bold"><%= element.title %></h1>
       <p>
-        <%= element.content.substring(0, 100) + "..." %><a
-          href="<%= port %>/posts/<%= element._id %> "
+        <%= element.content.substring(0, 100) + "..." %>
+        <a
+          href="/posts/<%= element._id %> "
           class="text-staticPri hover:text-blue-600"
           >read more</a
         >
