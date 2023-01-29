@@ -90,7 +90,8 @@ app.get("/", (req, res) => {
         console.log(err);
       } else {
         res.render("home", {
-          homePosts: posts
+          homePosts: posts,
+          port: PORT
         });
       }
     })
