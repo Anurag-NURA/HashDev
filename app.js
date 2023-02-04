@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -28,14 +29,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
-mongoose.connect("mongodb+srv://admin-ANURAG:asrblaze@cluster0.aygewv2.mongodb.net/blogDB")
+mongoose.connect(`${process.env.MONGODB_ATLAS_KEY}`)
   .then(() => {
     console.log("Connection established!!!");
   })
   .catch((err) => { console.log(err); });
-
 
 
 const userSchema = new mongoose.Schema({
